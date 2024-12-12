@@ -3,27 +3,104 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Our Wedding</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Our Wedding Memories</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body, html {
+            height: 100%;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+        }
+
+        .slider {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 100%;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            transition: left 0.5s ease-in-out;
+        }
+
+        .slide.active {
+            left: 0;
+        }
+
+        .slide.prev {
+            left: -100%;
+        }
+
+        .nav-button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            z-index: 10;
+        }
+
+        .nav-button.left {
+            left: 10px;
+        }
+
+        .nav-button.right {
+            right: 10px;
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <h1>Welcome to Our Wedding Memories</h1>
-        <p>The most beautiful day of our lives</p>
-    </header>
-    <main>
-        <section class="gallery">
-            <h2>Photo Gallery</h2>
-            <div class="photo-grid">
-                <img src="images/photo1.jpg" alt="Wedding Photo 1">
-                <img src="images/photo2.jpg" alt="Wedding Photo 2">
-                <img src="images/photo3.jpg" alt="Wedding Photo 3">
-                <img src="images/photo4.jpg" alt="Wedding Photo 4">
-            </div>
-        </section>
-    </main>
-    <footer>
-        <p>© [Your Name(s)], [Year]. All Rights Reserved.</p>
-    </footer>
+    <div class="slider">
+        <div class="slide active" style="background-image: url('images\1.png');"></div>
+        <div class="slide" style="background-image: url('images\2.png');"></div>
+        <div class="slide" style="background-image: url('images\3.png');"></div>
+        <button class="nav-button left">&#8249;</button>
+        <button class="nav-button right">&#8250;</button>
+    </div>
+
+    <script>
+        const slides = document.querySelectorAll('.slide');
+        const nextButton = document.querySelector('.nav-button.right');
+        const prevButton = document.querySelector('.nav-button.left');
+
+        let currentSlide = 0;
+
+        function updateSlides() {
+            slides.forEach((slide, index) => {
+                slide.classList.remove('active', 'prev');
+                if (index === currentSlide) {
+                    slide.classList.add('active');
+                } else if (index === (currentSlide - 1 + slides.length) % slides.length) {
+                    slide.classList.add('prev');
+                }
+            });
+        }
+
+        nextButton.addEventListener('click', () => {
+            currentSlide = (currentSlide + 1) % slides.length;
+            updateSlides();
+        });
+
+        prevButton.addEventListener('click', () => {
+            currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+            updateSlides();
+        });
+
+        updateSlides();
+    </script>
 </body>
 </html>
