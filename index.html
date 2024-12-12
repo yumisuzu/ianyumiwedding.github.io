@@ -48,22 +48,22 @@
 
         .nav-button {
             position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
+            bottom: 20px; /* Move buttons to the bottom */
             background-color: rgba(0, 0, 0, 0.5);
             color: white;
             border: none;
             padding: 10px 20px;
             cursor: pointer;
             z-index: 10;
+            transform: translateX(-50%);
         }
-
+    
         .nav-button.left {
-            left: 10px;
+            left: 20%; /* Adjust placement towards the left */
         }
-
+    
         .nav-button.right {
-            right: 10px;
+            right: 20%; /* Adjust placement towards the right */
         }
     </style>
 </head>
@@ -86,6 +86,8 @@
         const prevButton = document.querySelector('.nav-button.left');
 
         let currentSlide = 0;
+        let startX = 0; // Start position for swipe detection
+        let endX = 0;   // End position for swipe detection
 
         function updateSlides() {
             slides.forEach((slide, index) => {
@@ -105,6 +107,28 @@
 
         prevButton.addEventListener('click', () => {
             currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+            updateSlides();
+        });
+
+        // Swipe functionality
+        const slider = document.querySelector('.slider');
+
+        slider.addEventListener('touchstart', (e) => {
+            startX = e.touches[0].clientX; // Record the starting position of the touch
+        });
+
+        slider.addEventListener('touchmove', (e) => {
+            endX = e.touches[0].clientX; // Update the end position as the touch moves
+        });
+
+        slider.addEventListener('touchend', () => {
+            if (startX - endX > 50) {
+                // Swipe left (to next slide)
+                currentSlide = (currentSlide + 1) % slides.length;
+            } else if (endX - startX > 50) {
+                // Swipe right (to previous slide)
+                currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+            }
             updateSlides();
         });
 

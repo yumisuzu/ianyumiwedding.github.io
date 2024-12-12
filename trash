@@ -1,0 +1,34 @@
+const slides = document.querySelectorAll('.slide');
+        const nextButton = document.querySelector('.nav-button.right');
+        const prevButton = document.querySelector('.nav-button.left');
+
+        let currentSlide = 0;
+
+        function updateSlides() {
+            slides.forEach((slide, index) => {
+                slide.classList.remove('active', 'prev');
+                if (index === currentSlide) {
+                    slide.classList.add('active');
+                } else if (index === (currentSlide - 1 + slides.length) % slides.length) {
+                    slide.classList.add('prev');
+                }
+            });
+        }
+
+        nextButton.addEventListener('click', () => {
+            currentSlide = (currentSlide + 1) % slides.length;
+            updateSlides();
+        });
+
+        prevButton.addEventListener('click', () => {
+            currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+            updateSlides();
+        });
+
+        updateSlides();
+
+        const slides = document.querySelectorAll('.slide');
+        const nextButton = document.querySelector('.nav-button.right');
+        const prevButton = document.querySelector('.nav-button.left');
+
+        let currentSlide = 0;
