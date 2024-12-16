@@ -45,8 +45,6 @@
             transform: rotateY(0deg);
         }
 
-       
-
         .nav-button {
             position: absolute;
             bottom: 20px; /* Move buttons to the bottom */
@@ -60,12 +58,15 @@
         }
     
         .nav-button.left {
-            left: 20%; /* Adjust placement towards the left */
+            left: 50%; /* Start from the center */
+            transform: translate(-150%, -50%); /* Move left by 150% of the button's width */
         }
-    
+        
         .nav-button.right {
-            right: 20%; /* Adjust placement towards the right */
+            left: 50%; /* Start from the center */
+            transform: translate(50%, -50%); /* Move right by 50% of the button's width */
         }
+        
     </style>
 </head>
 <body>
