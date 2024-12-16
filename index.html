@@ -35,16 +35,17 @@
             background-position: center;
             background-repeat: no-repeat;
             flex: 0 0 100%; /* Each slide takes 100% of the slider's width */
-            transition: transform 0.5s ease-in-out; /* Smooth sliding effect */
+            transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out; /* Smooth sliding effect */
+            opacity: 0;
         }
 
         .slide.active {
             left: 0;
+            opacity: 1;
+            transform: rotateY(0deg);
         }
 
-        .slide.prev {
-            left: -100%;
-        }
+       
 
         .nav-button {
             position: absolute;
